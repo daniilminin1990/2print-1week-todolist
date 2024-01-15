@@ -1,6 +1,6 @@
-import React, {useRef, useState, KeyboardEvent} from "react";
+import React, { useRef, useState, KeyboardEvent } from "react";
 import Button from "./Button";
-import {FilterValuesType} from "./App";
+import { FilterValuesType } from "./App";
 
 export type TaskType = {
   id: string;
@@ -21,27 +21,16 @@ type TodoListPropsType = {
 };
 
 const TodoList = ({
-                    title,
-                    tasks,
-                    filter,
-                    removeTask,
-                    changeFilter,
-                    addTask,
-                    changeTaskStatus,
-                    todoListID,
-                    removeTodoList
-                  }: TodoListPropsType) => {
-  console.log("Todo")
-
-  // let tasksForTodoList = tasks;
-  //
-  // if(filter === 'active') {
-  //   tasksForTodoList = tasks.filter(t => t.isDone === false)
-  // }
-  // if(filter === 'completed') {
-  //   tasksForTodoList = tasks.filter(t => t.isDone === true)
-  // }
-
+  title,
+  tasks,
+  filter,
+  removeTask,
+  changeFilter,
+  addTask,
+  changeTaskStatus,
+  todoListID,
+  removeTodoList
+}: TodoListPropsType) => {
 
   // State для input
   const [taskTitle, setTaskTitle] = useState("")
@@ -58,7 +47,7 @@ const TodoList = ({
           onChange={(e) => changeTaskStatus(todoListID, task.id, e.currentTarget.checked)}
         />
         <span>{task.title}</span>
-        <Button title={"x"} onClickHandler={() => removeTask(todoListID, task.id)}/>
+        <Button title={"x"} onClickHandler={() => removeTask(todoListID, task.id)} />
       </li>
     )
   })
@@ -68,8 +57,6 @@ const TodoList = ({
     ? <ul> {listItems} </ul>
     : <span>Tasks list is empty</span>;
 
-  // const onChangeSetTaskTitle =
-
   // Обработчик для addTask
   const addTaskOnClickHandler = () => {
     // Проверка на наличие пробелов
@@ -77,7 +64,6 @@ const TodoList = ({
     if (trimmedTaskTitle) {
       addTask(todoListID, taskTitle)
     } else {
-      // alert("У тебя одни пробелы")
       setInputError(true)
     }
     setTaskTitle("")
@@ -96,7 +82,7 @@ const TodoList = ({
   return (
     <div className="todolist">
       <h3>{title}
-      <button onClick={removeTodoListHandler}>X</button> </h3>
+        <button onClick={removeTodoListHandler}>X</button> </h3>
       <div>
         <input
           value={taskTitle}
@@ -107,17 +93,17 @@ const TodoList = ({
           onKeyDown={addTaskKeyDownHandler}
           className={inputError ? 'inputError' : ''}
         />
-        <Button title="+" onClickHandler={addTaskOnClickHandler} isDisabled={!taskTitle}/>
-        {inputError && <div style={{color: 'red'}}>Error: title is required </div>}
+        <Button title="+" onClickHandler={addTaskOnClickHandler} isDisabled={!taskTitle} />
+        {inputError && <div style={{ color: 'red' }}>Error: title is required </div>}
       </div>
       {tasksList}
       <div>
         <Button classes={filter === 'all' ? 'btn-all' : ''} title="All"
-                onClickHandler={() => changeFilter(todoListID,"all")}/>
+          onClickHandler={() => changeFilter(todoListID, "all")} />
         <Button classes={filter === 'active' ? 'btn-active' : ''} title="Active"
-                onClickHandler={() => changeFilter(todoListID,"active")}/>
+          onClickHandler={() => changeFilter(todoListID, "active")} />
         <Button classes={filter === 'completed' ? 'btn-completed' : ''} title="Completed"
-                onClickHandler={() => changeFilter(todoListID, "completed")}/>
+          onClickHandler={() => changeFilter(todoListID, "completed")} />
       </div>
     </div>
   );
