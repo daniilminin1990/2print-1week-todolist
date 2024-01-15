@@ -1,4 +1,4 @@
-import React, { useRef, useState, KeyboardEvent } from "react";
+import React, { useRef, useState, KeyboardEvent, ChangeEvent } from "react";
 import Button from "./Button";
 import { FilterValuesType } from "./App";
 
@@ -79,6 +79,11 @@ const TodoList = ({
     removeTodoList(todoListID)
   }
 
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setTaskTitle(e.currentTarget.value)
+    inputError && setInputError(false)
+  }
+
   return (
     <div className="todolist">
       <h3>{title}
@@ -86,10 +91,7 @@ const TodoList = ({
       <div>
         <input
           value={taskTitle}
-          onChange={(e) => {
-            setTaskTitle(e.currentTarget.value)
-            inputError && setInputError(false)
-          }}
+          onChange={onChangeHandler}
           onKeyDown={addTaskKeyDownHandler}
           className={inputError ? 'inputError' : ''}
         />
